@@ -222,9 +222,9 @@ static id _sharedInstance;
 /**
  Cancels the currently active animation with the given animation ID. The completion block for the animation will be executed, with the finished parameter equal to NO.
  */
-+ (void)cancelAnimationWithID:(INTUAnimationID)animationID
++ (CGFloat)cancelAnimationWithID:(INTUAnimationID)animationID
 {
-    [[self sharedInstance] removeAnimationWithID:animationID didFinish:NO];
+    return [[self sharedInstance] removeAnimationWithID:animationID didFinish:NO];
 }
 
 - (id)init
@@ -265,7 +265,7 @@ static id _sharedInstance;
     [self.activeAnimations setObject:animation forKey:@(animation.animationID)];
 }
 
-- (void)removeAnimationWithID:(INTUAnimationID)animationID didFinish:(BOOL)finished
+- (CGFloat)removeAnimationWithID:(INTUAnimationID)animationID didFinish:(BOOL)finished
 {
     INTUAnimation *animation = [self.activeAnimations objectForKey:@(animationID)];
     [animation complete:finished];
@@ -273,6 +273,7 @@ static id _sharedInstance;
     if ([self.activeAnimations count] == 0) {
         self.displayLink.paused = YES;
     }
+    return animation.progress;
 }
 
 @end

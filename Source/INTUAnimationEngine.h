@@ -117,7 +117,9 @@ typedef NS_OPTIONS(NSUInteger, INTUAnimationOptions) {
  Cancels the currently active animation with the given animation ID.
  The completion block for the animation will be executed, with the finished parameter equal to NO.
  If there is no active animation for the given ID, this method will do nothing.
+ 
+ @return current progress of animation. It can be used to resume or start to continue the paused animation.
  */
-+ (void)cancelAnimationWithID:(INTUAnimationID)animationID;
++ (CGFloat)cancelAnimationWithID:(INTUAnimationID)animationID;
 
 @end
